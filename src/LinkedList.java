@@ -57,4 +57,9 @@ public class LinkedList<T> {
         size--;
         return removedElement;
     }
+
+    public int getSize() {
+        return size;
+    }
+
 }
