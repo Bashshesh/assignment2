@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class LinkedList<T> {
     private class Node<T> {
         private T element;
@@ -60,6 +62,20 @@ public class LinkedList<T> {
 
     public int getSize() {
         return size;
+    }
+
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Node<T> current = head;
+            public boolean hasNext() {
+                return current != null;
+            }
+            public T next() {
+                T element = current.element;
+                current = current.next;
+                return element;
+            }
+        };
     }
 
 }
