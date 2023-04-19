@@ -17,11 +17,11 @@ public class Main {
         arrayList.remove(2);
         arrayList.remove(3);
 
-        LinkedList<String> myList = new LinkedList<>();
+        LinkedList<String> list = new LinkedList<>();
 
-        myList.add("a");
-        myList.add("b");
-        myList.add("c");
+        list.add("a");
+        list.add("b");
+        list.add("c");
 
 
     }
