@@ -23,6 +23,10 @@ public class Main {
         list.add("b");
         list.add("c");
 
+        for (String element : list) {
+            System.out.print(element + " ");
+        }
+
 
     }
 
