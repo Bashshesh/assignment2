@@ -1,10 +1,18 @@
-public class ArrayList {
+public class ArrayList<T> {
     private Object[] array;
     private int size;
 
     public ArrayList() {
         array = new Object[5];
         size = 0;
+    }
+
+    public void add(T element) {
+        if (size == array.length) {
+//            increaseBuffer();
+        }
+        array[size] = element;
+        size++;
     }
 
 }
