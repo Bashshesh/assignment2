@@ -23,4 +23,13 @@ public class ArrayList<T> {
         array = newArray;
     }
 
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        return (T) array[index];
+    }
+
+
+
 }
