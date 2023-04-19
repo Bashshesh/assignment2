@@ -16,6 +16,8 @@ public class Main {
 
         arrayList.remove(2);
         arrayList.remove(3);
+
+        LinkedList<String> myList = new LinkedList<>();
     }
 
 
