@@ -21,4 +21,12 @@ public class LinkedList<T> {
         size++;
     }
 
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        Node<T> current = head;
+
+        return current.element;
+    }
 }
