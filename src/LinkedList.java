@@ -6,5 +6,16 @@ public class LinkedList<T> {
             this.element = element;
         }
     }
-     int size;
+    int size;
+    private Node<T> head;
+    private Node<T> tail;
+
+    public void add(T element) {
+        Node<T> newNode = new Node<>(element);
+        if (size == 0) {
+            head = newNode;
+        } else {
+            tail.next = newNode;
+        }
+    }
 }
