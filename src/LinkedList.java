@@ -1,2 +1,4 @@
-public class LinkedList {
+public class LinkedList<T> {
+
+     int size;
 }

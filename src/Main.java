@@ -17,4 +17,6 @@ public class Main {
         arrayList.remove(2);
         arrayList.remove(3);
     }
+
+
 }
