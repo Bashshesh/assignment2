@@ -31,4 +31,8 @@ public class LinkedList<T> {
         }
         return current.element;
     }
+
+    public void remove(int index) {
+
+    }
 }
