@@ -1,6 +1,6 @@
 import java.util.Iterator;
 
-public class LinkedList<T> {
+public class LinkedList<T> implements Iterable<T> {
     private class Node<T> {
         private T element;
         private Node<T> next;
