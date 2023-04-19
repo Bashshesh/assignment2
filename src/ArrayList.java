@@ -30,6 +30,15 @@ public class ArrayList<T> {
         return (T) array[index];
     }
 
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        for (int i = index; i < size - 1; i++) {
+            array[i] = array[i + 1];
+        }
+        size--;
+    }
 
 
 }
