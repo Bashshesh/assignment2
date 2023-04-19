@@ -26,7 +26,9 @@ public class LinkedList<T> {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
         Node<T> current = head;
-
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
         return current.element;
     }
 }
