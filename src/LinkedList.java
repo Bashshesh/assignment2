@@ -33,6 +33,28 @@ public class LinkedList<T> {
     }
 
     public T remove(int index) {
-
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        T removedElement;
+        if (index == 0) {
+            removedElement = head.element;
+            head = head.next;
+            if (size == 1) {
+                tail = null;
+            }
+        } else {
+            Node<T> previous = head;
+            for (int i = 0; i < index - 1; i++) {
+                previous = previous.next;
+            }
+            removedElement = previous.next.element;
+            previous.next = previous.next.next;
+            if (index == size - 1) {
+                tail = previous;
+            }
+        }
+        size--;
+        return removedElement;
     }
 }
