@@ -27,7 +27,16 @@ public class Main {
             System.out.print(element + " ");
         }
 
+        String second = list.get(1);
+        System.out.println(second);
 
+        String removed = list.remove(0);
+        System.out.println(removed);
+
+        for (String element : list) {
+            System.out.print(element + " ");
+        }
+        System.out.println(list.getSize());
     }
 
 
