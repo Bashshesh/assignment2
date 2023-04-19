@@ -1,9 +1,9 @@
 public class ArrayList {
-    private Object[] elements;
+    private Object[] array;
     private int size;
 
     public ArrayList() {
-        elements = new Object[5];
+        array = new Object[5];
         size = 0;
     }
 
