@@ -18,6 +18,12 @@ public class Main {
         arrayList.remove(3);
 
         LinkedList<String> myList = new LinkedList<>();
+
+        myList.add("a");
+        myList.add("b");
+        myList.add("c");
+
+
     }
 
 
