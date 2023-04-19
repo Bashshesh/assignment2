@@ -27,6 +27,7 @@ public class Main {
             System.out.print(element + " ");
         }
 
+        System.out.println();
         String second = list.get(1);
         System.out.println(second);
 
@@ -36,6 +37,7 @@ public class Main {
         for (String element : list) {
             System.out.print(element + " ");
         }
+        System.out.println(second);
         System.out.println(list.getSize());
     }
 
