@@ -9,10 +9,18 @@ public class ArrayList<T> {
 
     public void add(T element) {
         if (size == array.length) {
-//            increaseBuffer();
+            increaseBuffer();
         }
         array[size] = element;
         size++;
+    }
+
+    private void increaseBuffer() {
+        Object[] newArray = new Object[2 * array.length];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = array[i];
+        }
+        array = newArray;
     }
 
 }
