@@ -1,20 +1,29 @@
-import java.util.Iterator;
+public class MyLinkedList<T> implements MyList<T> {
 
-public class LinkedList<T> implements Iterable<T> {
-    private class Node<T> {
+    private class Node {
         private T element;
-        private Node<T> next;
-        public Node(T element) {
+        private Node next;
+        private Node prev;
+
+        public Node(T element, Node next, Node prev) {
             this.element = element;
+            this.next = next;
+            this.prev = prev;
         }
     }
-    int size;
-    private Node<T> head;
-    private Node<T> tail;
 
+    private Node head;
+    private Node tail;
+    private int size;
+
+    public MyLinkedList() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
     public void add(T element) {
-        Node<T> newNode = new Node<>(element);
-        if (size == 0) {
+        Node newNode = new Node(element, null, tail);
+        if (isEmpty()) {
             head = newNode;
         } else {
             tail.next = newNode;
@@ -22,60 +31,186 @@ public class LinkedList<T> implements Iterable<T> {
         tail = newNode;
         size++;
     }
-
     public T get(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+            throw new IndexOutOfBoundsException();
         }
-        Node<T> current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
+        Node currentNode;
+        if (index < size / 2) {
+            currentNode = head;
+            for (int i = 0; i < index; i++) {
+                currentNode = currentNode.next;
+            }
+        } else {
+            currentNode = tail;
+            for (int i = size - 1; i > index; i--) {
+                currentNode = currentNode.prev;
+            }
         }
-        return current.element;
-    }
 
+        return currentNode.element;
+    }
     public T remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
-        T removedElement;
-        if (index == 0) {
-            removedElement = head.element;
-            head = head.next;
-            if (size == 1) {
-                tail = null;
-            }
-        } else {
-            Node<T> previous = head;
-            for (int i = 0; i < index - 1; i++) {
-                previous = previous.next;
-            }
-            removedElement = previous.next.element;
-            previous.next = previous.next.next;
-            if (index == size - 1) {
-                tail = previous;
-            }
-        }
-        size--;
-        return removedElement;
-    }
 
-    public int getSize() {
+        Node nodeToRemove;
+        if (index == 0) {
+            nodeToRemove = head;
+            head = nodeToRemove.next;
+        } else if (index == size - 1) {
+            nodeToRemove = tail;
+            tail = nodeToRemove.prev;
+        } else {
+            Node currentNode;
+            if (index < size / 2) {
+                currentNode = head;
+                for (int i = 0; i < index; i++) {
+                    currentNode = currentNode.next;
+                }
+            } else {
+                currentNode = tail;
+                for (int i = size - 1; i > index; i--) {
+                    currentNode = currentNode.prev;
+                }
+            }
+            nodeToRemove = currentNode;
+            currentNode.prev.next = currentNode.next;
+            currentNode.next.prev = currentNode.prev;
+        }
+
+        size--;
+        return nodeToRemove.element;
+    }
+    public boolean remove(T item) {
+        Node current = head;
+        while (current != null) {
+            if (current.element.equals(item)) {
+                if (current == head) {
+                    // removing the first element
+                    head = current.next;
+                    if (head != null) {
+                        head.prev = null;
+                    } else {
+                        tail = null;
+                    }
+                } else if (current == tail) {
+                    // removing the last element
+                    tail = current.prev;
+                    if (tail != null) {
+                        tail.next = null;
+                    } else {
+                        head = null;
+                    }
+                } else {
+                    // removing an element in the middle
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                }
+                size--;
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+    public int size(){
         return size;
     }
 
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private Node<T> current = head;
-            public boolean hasNext() {
-                return current != null;
+    public boolean contains(Object o) {
+        Node currentNode = head;
+        while (currentNode != null) {
+            if (currentNode==o) {
+                return true;
             }
-            public T next() {
-                T element = current.element;
-                current = current.next;
-                return element;
+            currentNode = currentNode.next;
+        }
+        return false;
+    }
+    public void add(T item, int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+
+        Node newNode = new Node(item, null, null);
+        if (size == 0) {
+            head = tail = newNode;
+        } else if (index == 0) {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        } else if (index == size) {
+            newNode.prev = tail;
+            tail.next = newNode;
+            tail = newNode;
+        } else {
+            Node currentNode = head;
+            for (int i = 0; i < index; i++) {
+                currentNode = currentNode.next;
             }
-        };
+            newNode.next = currentNode;
+            newNode.prev = currentNode.prev;
+            currentNode.prev.next = newNode;
+            currentNode.prev = newNode;
+        }
+
+        size++;
+    }
+    public void sort(){
+        if (head == null || head.next == null) {
+            System.out.println("i didnt get it");
+        }
+    }
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
     }
 
+    public int indexOf(Object o) {
+        int index = 0;
+        Node current = head;
+        while (current != null) {
+            if (current.element.equals(o)) {
+                return index;
+            }
+            current = current.next;
+            index++;
+        }
+        return -1;
+    }
+    public int lastIndexOf(Object o) {
+        int index = size - 1;
+        Node current = tail;
+        while (current != null) {
+            if (current.element.equals(o)) {
+                return index;
+            }
+            current = current.prev;
+            index--;
+        }
+        return -1;
+    }
+
+    public void DelDub() {
+        Node currentNode = head;
+        Node currentNode1 = tail;
+        for(int i = 0; i<size; i++){
+            for(int j = 1; j<size-1; j++){
+                if (currentNode == currentNode1) {
+
+                } else {
+                    currentNode = currentNode.next;
+
+                }
+            }
+            currentNode1=currentNode.prev;
+        }
+    }
+
+    private boolean isEmpty() {
+        return size == 0;
+    }
 }
